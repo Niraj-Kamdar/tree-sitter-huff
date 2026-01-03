@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.13)
 project(tree-sitter-huff
         VERSION "0.0.1"
         DESCRIPTION "Huff grammar for tree-sitter"
-        HOMEPAGE_URL "https://github.com/niraj/tree-sitter-huff"
+        HOMEPAGE_URL "https://github.com/Niraj-Kamdar/tree-sitter-huff"
         LANGUAGES C)
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)

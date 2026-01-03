@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 keywords = ["incremental", "parsing", "tree-sitter", "huff"]
 categories = ["parser-implementations", "parsing", "text-editors"]
-repository = "https://github.com/niraj/tree-sitter-huff"
+repository = "https://github.com/Niraj-Kamdar/tree-sitter-huff"
 edition = "2021"
 autoexamples = false
 

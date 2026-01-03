@@ -3,7 +3,7 @@ $(error Windows is not supported)
 endif
 
 LANGUAGE_NAME := tree-sitter-huff
-HOMEPAGE_URL := https://github.com/niraj/tree-sitter-huff
+HOMEPAGE_URL := https://github.com/Niraj-Kamdar/tree-sitter-huff
 VERSION := 0.0.1
 
 # repository

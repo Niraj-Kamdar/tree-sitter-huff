@@ -16,7 +16,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/niraj/tree-sitter-huff"
+    "url": "https://github.com/Niraj-Kamdar/tree-sitter-huff"
   },
   "files": [
     "grammar.js",
@@ -40,7 +40,9 @@
   "tree-sitter": [
     {
       "scope": "source.huff",
-      "file-types": ["huff"],
+      "file-types": [
+        "huff"
+      ],
       "highlights": "queries/highlights.scm",
       "locals": "queries/locals.scm"
     }
