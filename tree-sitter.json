@@ -5,7 +5,9 @@
       "camelcase": "Huff",
       "scope": "source.huff",
       "path": ".",
-      "file-types": ["huff"]
+      "file-types": ["huff"],
+      "highlights": "queries/highlights.scm",
+      "locals": "queries/locals.scm"
     }
   ],
   "metadata": {
