@@ -1,0 +1,440 @@
+================================================================================
+Opcode - arithmetic
+================================================================================
+
+#define macro TEST() = takes(0) returns(0) {
+    add
+    mul
+    sub
+    div
+    sdiv
+    mod
+    smod
+    addmod
+    mulmod
+    exp
+    signextend
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode))))
+
+================================================================================
+Opcode - comparison
+================================================================================
+
+#define macro TEST() = takes(0) returns(0) {
+    lt
+    gt
+    slt
+    sgt
+    eq
+    iszero
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode))))
+
+================================================================================
+Opcode - bitwise
+================================================================================
+
+#define macro TEST() = takes(0) returns(0) {
+    and
+    or
+    xor
+    not
+    byte
+    shl
+    shr
+    sar
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode))))
+
+================================================================================
+Opcode - cryptographic
+================================================================================
+
+#define macro TEST() = takes(0) returns(0) {
+    sha3
+    keccak256
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (opcode)
+      (opcode))))
+
+================================================================================
+Opcode - environment
+================================================================================
+
+#define macro TEST() = takes(0) returns(0) {
+    address
+    balance
+    origin
+    caller
+    callvalue
+    calldataload
+    calldatasize
+    calldatacopy
+    codesize
+    codecopy
+    gasprice
+    extcodesize
+    extcodecopy
+    returndatasize
+    returndatacopy
+    extcodehash
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode))))
+
+================================================================================
+Opcode - block info
+================================================================================
+
+#define macro TEST() = takes(0) returns(0) {
+    blockhash
+    coinbase
+    timestamp
+    number
+    difficulty
+    gaslimit
+    chainid
+    selfbalance
+    basefee
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode))))
+
+================================================================================
+Opcode - memory and storage
+================================================================================
+
+#define macro TEST() = takes(0) returns(0) {
+    pop
+    mload
+    mstore
+    mstore8
+    sload
+    sstore
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode))))
+
+================================================================================
+Opcode - control flow
+================================================================================
+
+#define macro TEST() = takes(0) returns(0) {
+    jump
+    jumpi
+    pc
+    msize
+    gas
+    jumpdest
+    stop
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode))))
+
+================================================================================
+Opcode - dup and swap
+================================================================================
+
+#define macro TEST() = takes(0) returns(0) {
+    dup1
+    dup2
+    dup16
+    swap1
+    swap2
+    swap16
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode))))
+
+================================================================================
+Opcode - log operations
+================================================================================
+
+#define macro TEST() = takes(0) returns(0) {
+    log0
+    log1
+    log2
+    log3
+    log4
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode))))
+
+================================================================================
+Opcode - system operations
+================================================================================
+
+#define macro TEST() = takes(0) returns(0) {
+    create
+    call
+    callcode
+    return
+    delegatecall
+    create2
+    staticcall
+    revert
+    invalid
+    selfdestruct
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode))))
+
+================================================================================
+Opcode - mixed with literals
+================================================================================
+
+#define macro TRANSFER() = takes(0) returns(0) {
+    0x04 calldataload
+    0x24 calldataload
+    0x44 calldataload
+    dup1 dup3 gt
+    iszero
+    0x00 0x00 revert
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (hex_literal)
+      (opcode)
+      (hex_literal)
+      (opcode)
+      (hex_literal)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (opcode)
+      (hex_literal)
+      (hex_literal)
+      (opcode))))
+
+================================================================================
+Label definitions
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    success jumpi
+    0x00 0x00 revert
+    success:
+        jumpdest
+        0x01 0x00 return
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (identifier)
+      (opcode)
+      (hex_literal)
+      (hex_literal)
+      (opcode)
+      (label_definition
+        name: (identifier))
+      (opcode)
+      (hex_literal)
+      (hex_literal)
+      (opcode))))

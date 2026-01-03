@@ -6,7 +6,7 @@
  * @author Niraj
  * @license MIT
  *
- * Phase 3: Comments, literals, and define directives
+ * Phase 4: Comments, literals, define directives, and opcodes
  */
 
 module.exports = grammar({
@@ -140,10 +140,140 @@ module.exports = grammar({
       '}',
     ),
 
-    // Statements inside macro body (will be expanded in later phases)
+    // Statements inside macro body
     _statement: $ => choice(
+      $.label_definition,
+      $.opcode,
       $._literal,
       $.identifier,
+    ),
+
+    // Label definition: name:
+    label_definition: $ => seq(
+      field('name', $.identifier),
+      ':',
+    ),
+
+    // ========================================
+    // EVM Opcodes (all lowercase in Huff)
+    // ========================================
+    opcode: $ => choice(
+      // Stop and Arithmetic
+      'stop',
+      'add',
+      'mul',
+      'sub',
+      'div',
+      'sdiv',
+      'mod',
+      'smod',
+      'addmod',
+      'mulmod',
+      'exp',
+      'signextend',
+
+      // Comparison
+      'lt',
+      'gt',
+      'slt',
+      'sgt',
+      'eq',
+      'iszero',
+
+      // Bitwise
+      'and',
+      'or',
+      'xor',
+      'not',
+      'byte',
+      'shl',
+      'shr',
+      'sar',
+
+      // Cryptographic
+      'sha3',
+      'keccak256',
+
+      // Environment
+      'address',
+      'balance',
+      'origin',
+      'caller',
+      'callvalue',
+      'calldataload',
+      'calldatasize',
+      'calldatacopy',
+      'codesize',
+      'codecopy',
+      'gasprice',
+      'extcodesize',
+      'extcodecopy',
+      'returndatasize',
+      'returndatacopy',
+      'extcodehash',
+
+      // Block information
+      'blockhash',
+      'coinbase',
+      'timestamp',
+      'number',
+      'difficulty',
+      'prevrandao',
+      'gaslimit',
+      'chainid',
+      'selfbalance',
+      'basefee',
+
+      // Stack, Memory, Storage
+      'pop',
+      'mload',
+      'mstore',
+      'mstore8',
+      'sload',
+      'sstore',
+      'tload',
+      'tstore',
+
+      // Control flow
+      'jump',
+      'jumpi',
+      'pc',
+      'msize',
+      'gas',
+      'jumpdest',
+
+      // Push operations (handled as regex patterns)
+      /push[1-9]/,
+      /push1[0-9]/,
+      /push2[0-9]/,
+      /push3[0-2]/,
+
+      // Dup operations
+      /dup[1-9]/,
+      /dup1[0-6]/,
+
+      // Swap operations
+      /swap[1-9]/,
+      /swap1[0-6]/,
+
+      // Log operations
+      'log0',
+      'log1',
+      'log2',
+      'log3',
+      'log4',
+
+      // System operations
+      'create',
+      'call',
+      'callcode',
+      'return',
+      'delegatecall',
+      'create2',
+      'staticcall',
+      'revert',
+      'invalid',
+      'selfdestruct',
     ),
 
     // ========================================
