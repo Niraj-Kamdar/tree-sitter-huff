@@ -1,0 +1,48 @@
+{
+  "name": "tree-sitter-huff",
+  "version": "0.0.1",
+  "description": "Tree-sitter grammar for Huff, a low-level EVM assembly language",
+  "main": "bindings/node",
+  "types": "bindings/node",
+  "keywords": [
+    "parser",
+    "huff",
+    "tree-sitter",
+    "evm",
+    "ethereum",
+    "smart-contracts"
+  ],
+  "author": "Niraj",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/niraj/tree-sitter-huff"
+  },
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**",
+    "*.wasm"
+  ],
+  "devDependencies": {
+    "tree-sitter-cli": "^0.25.0",
+    "typescript": "^5.3.0"
+  },
+  "scripts": {
+    "build": "tree-sitter generate",
+    "test": "tree-sitter test",
+    "lint": "tree-sitter parse --quiet examples/*.huff",
+    "parse": "tree-sitter parse"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.huff",
+      "file-types": ["huff"],
+      "highlights": "queries/highlights.scm",
+      "locals": "queries/locals.scm"
+    }
+  ]
+}
