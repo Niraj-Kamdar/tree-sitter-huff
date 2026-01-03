@@ -67,7 +67,7 @@ tree-sitter parse examples/comments.huff
 | Feature | Status |
 |---------|--------|
 | Comments | Done |
-| Literals | Pending |
+| Literals | Done |
 | Define directives | Pending |
 | Opcodes | Pending |
 | Built-in functions | Pending |

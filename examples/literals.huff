@@ -1,0 +1,15 @@
+// Hex literals
+0x00
+0x1234
+0xDEADBEEF
+0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+
+// Decimal literals
+0
+42
+1000000
+
+// String literals
+"hello"
+'world'
+"path/to/file.huff"

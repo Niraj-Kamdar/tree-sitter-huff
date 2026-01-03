@@ -6,7 +6,7 @@
  * @author Niraj
  * @license MIT
  *
- * Phase 1: Comments and basic structure
+ * Phase 2: Comments, basic structure, and literals
  */
 
 module.exports = grammar({
@@ -22,7 +22,10 @@ module.exports = grammar({
     source_file: $ => repeat($._definition),
 
     // Placeholder for definitions (will be expanded in later phases)
-    _definition: $ => $.comment,
+    _definition: $ => choice(
+      $.comment,
+      $._literal,
+    ),
 
     // ========================================
     // Comments
@@ -44,5 +47,26 @@ module.exports = grammar({
       /[^*]*\*+([^/*][^*]*\*+)*/,
       '/',
     )),
+
+    // ========================================
+    // Literals
+    // ========================================
+    _literal: $ => choice(
+      $.hex_literal,
+      $.decimal_literal,
+      $.string_literal,
+    ),
+
+    // Hexadecimal literal: 0x1234abcdef
+    hex_literal: $ => /0[xX][0-9a-fA-F]+/,
+
+    // Decimal literal: 12345
+    decimal_literal: $ => /[0-9]+/,
+
+    // String literal: "hello" or 'hello'
+    string_literal: $ => choice(
+      seq('"', /[^"]*/, '"'),
+      seq("'", /[^']*/, "'"),
+    ),
   },
 });
