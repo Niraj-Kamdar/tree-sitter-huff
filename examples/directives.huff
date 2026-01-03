@@ -1,0 +1,39 @@
+// Include other files
+#include "./utils.huff"
+
+// Constants
+#define constant OWNER_SLOT = FREE_STORAGE_POINTER()
+#define constant BALANCE_SLOT = FREE_STORAGE_POINTER()
+#define constant MAX_UINT = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+
+// Interface functions
+#define function balanceOf(address) view returns(uint256)
+#define function transfer(address, uint256) nonpayable returns(bool)
+#define function approve(address, uint256) nonpayable returns(bool)
+
+// Events
+#define event Transfer(address indexed from, address indexed to, uint256 value)
+#define event Approval(address indexed owner, address indexed spender, uint256 value)
+
+// Errors
+#define error InsufficientBalance(uint256, uint256)
+#define error Unauthorized()
+
+// Jump tables
+#define jumptable MAIN_JUMPTABLE {
+    transfer
+    balanceOf
+    approve
+}
+
+// Main macro
+#define macro MAIN() = takes(0) returns(0) {
+    0x00
+    0xe0
+}
+
+// Helper function
+#define fn HELPER() = takes(1) returns(0) {
+    0x00
+    0x00
+}

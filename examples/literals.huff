@@ -1,15 +1,21 @@
-// Hex literals
-0x00
-0x1234
-0xDEADBEEF
-0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+// Hex literals in constants
+#define constant ZERO = 0x00
+#define constant SELECTOR = 0x1234
+#define constant MAGIC = 0xDEADBEEF
+#define constant MAX_UINT = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 
-// Decimal literals
-0
-42
-1000000
+// Decimal literals in constants
+#define constant ZERO_DEC = 0
+#define constant ANSWER = 42
+#define constant MILLION = 1000000
 
-// String literals
-"hello"
-'world'
-"path/to/file.huff"
+// Hex and decimal literals in macro body
+#define macro MAIN() = takes(0) returns(0) {
+    0x00
+    0x20
+    42
+    0xDEAD
+}
+
+// String literal in include
+#include "path/to/file.huff"

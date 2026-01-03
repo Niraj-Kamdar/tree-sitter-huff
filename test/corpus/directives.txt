@@ -1,0 +1,298 @@
+================================================================================
+Macro - simple
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block)))
+
+================================================================================
+Macro - with parameters
+================================================================================
+
+#define macro ADD(x, y) = takes(2) returns(1) {
+    x y
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    parameters: (parameter_list
+      (identifier)
+      (identifier))
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (identifier)
+      (identifier))))
+
+================================================================================
+Fn definition
+================================================================================
+
+#define fn HELPER() = takes(1) returns(1) {
+    0x20
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (fn_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (hex_literal))))
+
+================================================================================
+Function interface - simple
+================================================================================
+
+#define function transfer(address, uint256) nonpayable returns()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    parameters: (type_list
+      (type)
+      (type))
+    visibility: (function_visibility)))
+
+================================================================================
+Function interface - view
+================================================================================
+
+#define function balanceOf(address) view returns(uint256)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    parameters: (type_list
+      (type))
+    visibility: (function_visibility)
+    return_type: (type_list
+      (type))))
+
+================================================================================
+Function interface - no params
+================================================================================
+
+#define function name() view returns(string)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    name: (identifier)
+    visibility: (function_visibility)
+    return_type: (type_list
+      (type))))
+
+================================================================================
+Event definition - simple
+================================================================================
+
+#define event Transfer(address, address, uint256)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (event_definition
+    name: (identifier)
+    parameters: (event_parameter_list
+      (event_parameter
+        (type))
+      (event_parameter
+        (type))
+      (event_parameter
+        (type)))))
+
+================================================================================
+Event definition - with indexed
+================================================================================
+
+#define event Transfer(address indexed from, address indexed to, uint256 value)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (event_definition
+    name: (identifier)
+    parameters: (event_parameter_list
+      (event_parameter
+        (type)
+        (identifier))
+      (event_parameter
+        (type)
+        (identifier))
+      (event_parameter
+        (type)
+        (identifier)))))
+
+================================================================================
+Constant - hex value
+================================================================================
+
+#define constant OWNER = 0x1234567890123456789012345678901234567890
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constant_definition
+    name: (identifier)
+    value: (hex_literal)))
+
+================================================================================
+Constant - decimal value
+================================================================================
+
+#define constant AMOUNT = 1000000
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constant_definition
+    name: (identifier)
+    value: (decimal_literal)))
+
+================================================================================
+Constant - FREE_STORAGE_POINTER
+================================================================================
+
+#define constant BALANCE_SLOT = FREE_STORAGE_POINTER()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constant_definition
+    name: (identifier)
+    value: (free_storage_pointer)))
+
+================================================================================
+Error definition
+================================================================================
+
+#define error InsufficientBalance(uint256, uint256)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (error_definition
+    name: (identifier)
+    parameters: (type_list
+      (type)
+      (type))))
+
+================================================================================
+Error definition - no params
+================================================================================
+
+#define error Unauthorized()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (error_definition
+    name: (identifier)))
+
+================================================================================
+Jumptable definition
+================================================================================
+
+#define jumptable JUMP_TABLE {
+    label1
+    label2
+    label3
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (jumptable_definition
+    name: (identifier)
+    body: (jumptable_body
+      (identifier)
+      (identifier)
+      (identifier))))
+
+================================================================================
+Jumptable packed definition
+================================================================================
+
+#define jumptable__packed PACKED_TABLE {
+    entry1
+    entry2
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (jumptable_packed_definition
+    name: (identifier)
+    body: (jumptable_body
+      (identifier)
+      (identifier))))
+
+================================================================================
+Include directive
+================================================================================
+
+#include "./utils.huff"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (include_directive
+    path: (string_literal)))
+
+================================================================================
+Multiple definitions
+================================================================================
+
+#define constant VALUE = 0x01
+
+#define macro MAIN() = takes(0) returns(0) {
+    0x00
+}
+
+#define function getValue() view returns(uint256)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constant_definition
+    name: (identifier)
+    value: (hex_literal))
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (hex_literal)))
+  (function_definition
+    name: (identifier)
+    visibility: (function_visibility)
+    return_type: (type_list
+      (type))))

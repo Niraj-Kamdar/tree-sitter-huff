@@ -1,176 +1,147 @@
 ================================================================================
-Hex literal - lowercase
+Hex literal in macro
 ================================================================================
 
-0x1234abcd
+#define macro TEST() = takes(0) returns(0) {
+    0x1234abcd
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (hex_literal))
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (hex_literal))))
 
 ================================================================================
-Hex literal - uppercase
+Hex literal - uppercase X
 ================================================================================
 
-0X1234ABCD
+#define macro TEST() = takes(0) returns(0) {
+    0XABCD
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (hex_literal))
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (hex_literal))))
 
 ================================================================================
-Hex literal - mixed case
+Hex literal - 32 bytes
 ================================================================================
 
-0xDeAdBeEf
+#define macro TEST() = takes(0) returns(0) {
+    0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (hex_literal))
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (hex_literal))))
 
 ================================================================================
-Hex literal - single digit
+Decimal literal in constant
 ================================================================================
 
-0x0
+#define constant VALUE = 42
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (hex_literal))
-
-================================================================================
-Hex literal - 32 bytes (full word)
-================================================================================
-
-0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-
---------------------------------------------------------------------------------
-
-(source_file
-  (hex_literal))
+  (constant_definition
+    name: (identifier)
+    value: (decimal_literal)))
 
 ================================================================================
 Decimal literal - zero
 ================================================================================
 
-0
+#define constant ZERO = 0
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (decimal_literal))
-
-================================================================================
-Decimal literal - single digit
-================================================================================
-
-7
-
---------------------------------------------------------------------------------
-
-(source_file
-  (decimal_literal))
+  (constant_definition
+    name: (identifier)
+    value: (decimal_literal)))
 
 ================================================================================
 Decimal literal - large number
 ================================================================================
 
-115792089237316195423570985008687907853269984665640564039457584007913129639935
+#define constant MAX_UINT = 115792089237316195423570985008687907853269984665640564039457584007913129639935
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (decimal_literal))
+  (constant_definition
+    name: (identifier)
+    value: (decimal_literal)))
 
 ================================================================================
-String literal - double quotes
+Hex literal in constant
 ================================================================================
 
-"hello world"
+#define constant OWNER = 0xDEADBEEF
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (string_literal))
+  (constant_definition
+    name: (identifier)
+    value: (hex_literal)))
 
 ================================================================================
-String literal - single quotes
+String literal in include
 ================================================================================
 
-'hello world'
+#include "path/to/file.huff"
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (string_literal))
+  (include_directive
+    path: (string_literal)))
 
 ================================================================================
-String literal - empty double quotes
+Multiple literals in macro
 ================================================================================
 
-""
+#define macro TEST() = takes(0) returns(0) {
+    0x00
+    42
+    0xDEAD
+}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (string_literal))
-
-================================================================================
-String literal - empty single quotes
-================================================================================
-
-''
-
---------------------------------------------------------------------------------
-
-(source_file
-  (string_literal))
-
-================================================================================
-String literal - with special characters
-================================================================================
-
-"hello\nworld"
-
---------------------------------------------------------------------------------
-
-(source_file
-  (string_literal))
-
-================================================================================
-Multiple literals
-================================================================================
-
-0x1234
-42
-"test"
-
---------------------------------------------------------------------------------
-
-(source_file
-  (hex_literal)
-  (decimal_literal)
-  (string_literal))
-
-================================================================================
-Literals with comments
-================================================================================
-
-// A hex value
-0xDEAD
-/* A number */
-42
-
---------------------------------------------------------------------------------
-
-(source_file
-  (comment
-    (line_comment))
-  (hex_literal)
-  (comment
-    (block_comment))
-  (decimal_literal))
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (hex_literal)
+      (decimal_literal)
+      (hex_literal))))
