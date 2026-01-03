@@ -1,0 +1,311 @@
+================================================================================
+Macro invocation - simple
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    HELPER()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (macro_invocation
+        name: (identifier)))))
+
+================================================================================
+Macro invocation - with arguments
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    TRANSFER(0x00, 0x20, value)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (macro_invocation
+        name: (identifier)
+        arguments: (invocation_args
+          (hex_literal)
+          (hex_literal)
+          (identifier))))))
+
+================================================================================
+Macro invocation - with template
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    DISPATCH<error>()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (macro_invocation
+        name: (identifier)
+        (template_args
+          (identifier))))))
+
+================================================================================
+Constant reference
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    [OWNER_SLOT]
+    sload
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (constant_reference
+        name: (identifier))
+      (opcode))))
+
+================================================================================
+Builtin - __codesize
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    __codesize(RUNTIME)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (builtin_call
+        (builtin_codesize
+          macro: (identifier))))))
+
+================================================================================
+Builtin - __tablesize
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    __tablesize(JUMP_TABLE)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (builtin_call
+        (builtin_tablesize
+          table: (identifier))))))
+
+================================================================================
+Builtin - __tablestart
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    __tablestart(JUMP_TABLE)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (builtin_call
+        (builtin_tablestart
+          table: (identifier))))))
+
+================================================================================
+Builtin - __FUNC_SIG with identifier
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    __FUNC_SIG(transfer)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (builtin_call
+        (builtin_func_sig
+          function: (identifier))))))
+
+================================================================================
+Builtin - __FUNC_SIG with string
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    __FUNC_SIG("transfer(address,uint256)")
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (builtin_call
+        (builtin_func_sig
+          function: (string_literal))))))
+
+================================================================================
+Builtin - __EVENT_HASH
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    __EVENT_HASH(Transfer)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (builtin_call
+        (builtin_event_hash
+          event: (identifier))))))
+
+================================================================================
+Builtin - __ERROR
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    __ERROR(InsufficientBalance)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (builtin_call
+        (builtin_error
+          error: (identifier))))))
+
+================================================================================
+Builtin - __RIGHTPAD
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    __RIGHTPAD(0x01)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (builtin_call
+        (builtin_rightpad
+          value: (hex_literal))))))
+
+================================================================================
+Mixed builtins and invocations
+================================================================================
+
+#define macro MAIN() = takes(0) returns(0) {
+    __FUNC_SIG(transfer) eq
+    transfer jumpi
+    __ERROR(InvalidSelector)
+    0x00 mstore
+    0x04 0x00 revert
+
+    transfer:
+        TRANSFER()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro_definition
+    name: (identifier)
+    takes: (takes_clause
+      (decimal_literal))
+    returns: (returns_clause
+      (decimal_literal))
+    body: (block
+      (builtin_call
+        (builtin_func_sig
+          function: (identifier)))
+      (opcode)
+      (identifier)
+      (opcode)
+      (builtin_call
+        (builtin_error
+          error: (identifier)))
+      (hex_literal)
+      (opcode)
+      (hex_literal)
+      (hex_literal)
+      (opcode)
+      (label_definition
+        name: (identifier))
+      (macro_invocation
+        name: (identifier)))))

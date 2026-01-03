@@ -1,0 +1,96 @@
+// Built-in functions and macro invocations
+
+#define constant OWNER_SLOT = FREE_STORAGE_POINTER()
+#define constant BALANCE_SLOT = FREE_STORAGE_POINTER()
+
+#define function transfer(address, uint256) nonpayable returns(bool)
+#define function balanceOf(address) view returns(uint256)
+
+#define event Transfer(address indexed, address indexed, uint256)
+#define error InsufficientBalance(uint256, uint256)
+
+#define jumptable SELECTOR_TABLE {
+    transfer
+    balanceOf
+}
+
+#define macro MAIN() = takes(0) returns(0) {
+    // Get function selector
+    0x00 calldataload
+    0xe0 shr
+
+    // Check transfer selector
+    dup1 __FUNC_SIG(transfer) eq
+    transfer jumpi
+
+    // Check balanceOf selector
+    dup1 __FUNC_SIG(balanceOf) eq
+    balanceOf jumpi
+
+    // No match - revert
+    0x00 0x00 revert
+
+    transfer:
+        TRANSFER()
+
+    balanceOf:
+        BALANCE_OF()
+}
+
+#define macro TRANSFER() = takes(0) returns(0) {
+    // Load arguments
+    0x04 calldataload   // to
+    0x24 calldataload   // amount
+
+    // Get sender balance from storage
+    caller [BALANCE_SLOT] add sload
+
+    // Check balance
+    dup1 dup3 lt
+    insufficient jumpi
+
+    // Update sender balance
+    dup2 swap1 sub
+    caller [BALANCE_SLOT] add sstore
+
+    // Update recipient balance
+    dup2 [BALANCE_SLOT] add sload
+    dup2 add
+    dup3 [BALANCE_SLOT] add sstore
+
+    // Emit Transfer event
+    dup2 0x00 mstore
+    __EVENT_HASH(Transfer)
+    caller dup4 0x20 0x00 log3
+
+    // Return true
+    0x01 0x00 mstore
+    0x20 0x00 return
+
+    insufficient:
+        __ERROR(InsufficientBalance)
+        0x00 mstore
+        caller [BALANCE_SLOT] add sload
+        0x04 mstore
+        dup2 0x24 mstore
+        0x44 0x00 revert
+}
+
+#define macro BALANCE_OF() = takes(0) returns(0) {
+    0x04 calldataload   // account
+    [BALANCE_SLOT] add sload
+    0x00 mstore
+    0x20 0x00 return
+}
+
+// Constructor with runtime code size
+#define macro CONSTRUCTOR() = takes(0) returns(0) {
+    __codesize(RUNTIME) dup1
+    __tablestart(SELECTOR_TABLE)
+    0x00 codecopy
+    0x00 return
+}
+
+#define macro RUNTIME() = takes(0) returns(0) {
+    MAIN()
+}

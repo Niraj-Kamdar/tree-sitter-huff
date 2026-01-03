@@ -6,7 +6,7 @@
  * @author Niraj
  * @license MIT
  *
- * Phase 4: Comments, literals, define directives, and opcodes
+ * Phase 5: Full Huff grammar with built-ins and macro invocations
  */
 
 module.exports = grammar({
@@ -143,6 +143,9 @@ module.exports = grammar({
     // Statements inside macro body
     _statement: $ => choice(
       $.label_definition,
+      $.macro_invocation,
+      $.builtin_call,
+      $.constant_reference,
       $.opcode,
       $._literal,
       $.identifier,
@@ -152,6 +155,107 @@ module.exports = grammar({
     label_definition: $ => seq(
       field('name', $.identifier),
       ':',
+    ),
+
+    // ========================================
+    // Macro invocation
+    // MACRO_NAME() or MACRO_NAME<template>(args)
+    // ========================================
+    macro_invocation: $ => seq(
+      field('name', $.identifier),
+      optional($.template_args),
+      '(',
+      optional(field('arguments', $.invocation_args)),
+      ')',
+    ),
+
+    template_args: $ => seq(
+      '<',
+      $.identifier,
+      repeat(seq(',', $.identifier)),
+      '>',
+    ),
+
+    invocation_args: $ => seq(
+      $._invocation_arg,
+      repeat(seq(',', $._invocation_arg)),
+    ),
+
+    _invocation_arg: $ => choice(
+      $._literal,
+      $.identifier,
+      $.constant_reference,
+    ),
+
+    // ========================================
+    // Constant reference [CONSTANT_NAME]
+    // ========================================
+    constant_reference: $ => seq(
+      '[',
+      field('name', $.identifier),
+      ']',
+    ),
+
+    // ========================================
+    // Built-in functions
+    // ========================================
+    builtin_call: $ => choice(
+      $.builtin_codesize,
+      $.builtin_tablesize,
+      $.builtin_tablestart,
+      $.builtin_func_sig,
+      $.builtin_event_hash,
+      $.builtin_error,
+      $.builtin_rightpad,
+    ),
+
+    builtin_codesize: $ => seq(
+      '__codesize',
+      '(',
+      field('macro', $.identifier),
+      ')',
+    ),
+
+    builtin_tablesize: $ => seq(
+      '__tablesize',
+      '(',
+      field('table', $.identifier),
+      ')',
+    ),
+
+    builtin_tablestart: $ => seq(
+      '__tablestart',
+      '(',
+      field('table', $.identifier),
+      ')',
+    ),
+
+    builtin_func_sig: $ => seq(
+      '__FUNC_SIG',
+      '(',
+      field('function', choice($.identifier, $.string_literal)),
+      ')',
+    ),
+
+    builtin_event_hash: $ => seq(
+      '__EVENT_HASH',
+      '(',
+      field('event', $.identifier),
+      ')',
+    ),
+
+    builtin_error: $ => seq(
+      '__ERROR',
+      '(',
+      field('error', $.identifier),
+      ')',
+    ),
+
+    builtin_rightpad: $ => seq(
+      '__RIGHTPAD',
+      '(',
+      field('value', choice($._literal, $.identifier)),
+      ')',
     ),
 
     // ========================================
