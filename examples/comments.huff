@@ -1,0 +1,10 @@
+// Simple line comment
+
+/* Block comment */
+
+/*
+ * Multi-line
+ * block comment
+ */
+
+// Another line comment
